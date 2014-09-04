@@ -33,7 +33,11 @@ class TestResetVmOnReboot(cloudstackTestCase):
     def setUpClass(cls):
         testClient = super(TestResetVmOnReboot, cls).getClsTestClient()
         cls.apiclient = testClient.getApiClient()
-        cls.services = testClient.getParsedTestDataConfig()        
+        cls.services = testClient.getParsedTestDataConfig()
+        
+        #Adding storage type as 'local' otherwise it won't work because default is 'shared'.
+        cls.services["service_offerings"]["small"]['storagetype'] = 'local'
+        cls.services['ostype'] = 'CentOS 5.6 (64-bit)'
 
         # Get Zone, Domain and templates
         domain = get_domain(cls.apiclient)

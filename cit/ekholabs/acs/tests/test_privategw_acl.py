@@ -82,7 +82,7 @@ class TestPrivateGwACL(cloudstackTestCase):
     def createVPC(self):
         createVPCCmd = createVPC.createVPCCmd()
         createVPCCmd.name = "new vpc"
-        createVPCCmd.cidr = "10.1.1.0/24"
+        createVPCCmd.cidr = "10.1.2.0/24"
         createVPCCmd.displaytext = "new vpc"
         createVPCCmd.vpcofferingid = 1
         createVPCCmd.zoneid = self.zoneId
@@ -95,7 +95,7 @@ class TestPrivateGwACL(cloudstackTestCase):
         createNetworkCmd.name = "vpc network"
         createNetworkCmd.displaytext = "vpc network"
         createNetworkCmd.netmask = "255.255.255.0"
-        createNetworkCmd.gateway = "10.1.1.1"
+        createNetworkCmd.gateway = "10.1.2.1"
         createNetworkCmd.zoneid = self.zoneId
         createNetworkCmd.vpcid = self.vpcId
         createNetworkCmd.networkofferingid = self.networkOfferingId

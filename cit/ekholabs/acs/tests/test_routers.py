@@ -61,6 +61,10 @@ class TestRouterServices(cloudstackTestCase):
                                      cls.services["account"],
                                      domainid=cls.domain.id
                                      )
+
+        #Adding storage type as 'local' otherwise it won't work because default is 'shared'.
+        cls.services["service_offerings"]['storagetype'] = 'local'
+        
         cls.service_offering = ServiceOffering.create(
                                             cls.apiclient,
                                             cls.services["service_offerings"]
