@@ -43,7 +43,7 @@ class TestVpcRemoteAccessVpn(cloudstackTestCase):
         cls.domain = get_domain(cls.apiclient)
         cls.service_offering = ServiceOffering.create(
             cls.apiclient,
-            cls.services["service_offerings"]
+            cls.services["service_offerings"]["small"]
         )
         cls.account = Account.create(cls.apiclient, services=cls.services["account"])
         cls.template = get_template(
@@ -151,11 +151,16 @@ class TestVpcSite2SiteVpn(cloudstackTestCase):
         cls.services["service_offerings"]["small"]['storagetype'] = 'local'
         cls.services['ostype'] = 'CentOS 5.6 (64-bit)'
 
+        cls.services["vpc"]['cidr'] = '10.1.2.0/24'
+        cls.services["vpc2"]['cidr'] = '10.1.3.0/24'
+        cls.services["ntwk"]['gateway'] = '10.1.2.1'
+        cls.services["ntwk2"]['gateway'] = '10.1.3.1'
+
         cls.zone = get_zone(cls.apiclient, testClient.getZoneForTests())
         cls.domain = get_domain(cls.apiclient)
         cls.service_offering = ServiceOffering.create(
             cls.apiclient,
-            cls.services["service_offerings"]
+            cls.services["service_offerings"]['small']
         )
         cls.account = Account.create(cls.apiclient, services=cls.services["account"])
         cls.template = get_template(
