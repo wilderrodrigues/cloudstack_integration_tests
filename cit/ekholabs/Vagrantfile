@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     xenserver.vm.box = 'duffy/xenserver'
 
     # Public Network (IP address is ignored.)
-    xenserver.vm.network :private_network, :auto_config => false, :ip => '192.168.57.10'
+    xenserver.vm.network :private_network, :auto_config => false, :ip => '10.1.1.10'
 
     # Guest Network (IP address is ignored.)
     xenserver.vm.network :private_network, :auto_config => false, :ip => '192.168.58.10'
@@ -62,7 +62,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     management.vm.box = 'chef/centos-6.5'
 
     # Configure management interface
-    management.vm.network :private_network, :auto_config => true, :ip => '192.168.56.5'
+    management.vm.network :private_network, :auto_config => true, :ip => '10.1.1.9'
 
     # Configure public interface
     management.vm.network :private_network, :auto_config => true, :ip => '192.168.57.5'
