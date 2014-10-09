@@ -1,0 +1,45 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    build-essential (2.0.6)
+    co-nfs (0.2.0)
+    mysql (5.3.6)
+      yum-mysql-community (>= 0.0.0)
+    yum (3.2.2)
+    yum-epel (0.4.0)
+      yum (~> 3.0)
+    yum-mysql-community (0.1.10)
+      yum (>= 3.0)
+
+GIT
+  remote: http://github.com/imduffy15/cookbook_nat-router
+  ref: master
+  sha: 5971aa189de100330238f8c178b7b2f3f13a2e3b
+  specs:
+    nat-router (0.0.1)
+
+GIT
+  remote: https://github.com/imduffy15/cookbook_cloudstack.git
+  ref: master
+  sha: cb357003e0fd98f23b0020153a9e6878ff0a96cf
+  specs:
+    cloudstack (0.0.1)
+      co-nfs (>= 0.0.0)
+      mysql (>= 0.0.0)
+      nat-router (>= 0.0.0)
+      python (>= 0.0.0)
+
+GIT
+  remote: https://github.com/imduffy15/python.git
+  ref: master
+  sha: bcbea3f3acb5fa5527a3c938fcc5bab31da93f0b
+  specs:
+    python (1.4.7)
+      build-essential (>= 0.0.0)
+      yum-epel (>= 0.0.0)
+
+DEPENDENCIES
+  cloudstack (>= 0)
+  nat-router (>= 0)
+  python (>= 0)
+
