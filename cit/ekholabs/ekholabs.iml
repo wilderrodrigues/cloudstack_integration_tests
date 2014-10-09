@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="true" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="marvin" />
+    <orderEntry type="module" module-name="cloudstack-cloudmonkey" />
+    <orderEntry type="jdk" jdkName="Python 2.7.8 (~/brew/bin/python)" jdkType="Python SDK" />
+  </component>
+</module>
+
