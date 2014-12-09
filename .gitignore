@@ -18,3 +18,4 @@
 .buildpath
 .project
 *.pyc
+.pydevproject
