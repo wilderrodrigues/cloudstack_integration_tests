@@ -598,6 +598,9 @@ class TestVPCRoutersBasic(cloudstackTestCase):
         Router.destroy( self.api_client,
 		        id=routers[0].id
 		      )
+        Router.destroy( self.api_client,
+                id=routers[1].id
+              )
 		
         routers = Router.list(
                               self.api_client,
