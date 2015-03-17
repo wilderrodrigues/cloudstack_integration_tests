@@ -365,7 +365,7 @@ class TestVPCRoutersBasic(cloudstackTestCase):
                          " still %s" % (host.id, router.hostid))
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    @attr(tags=["advanced", "intervlan"])
     def test_01_stop_start_router_after_creating_vpc(self):
         """ Test to stop and start router after creation of VPC
         """
@@ -443,7 +443,7 @@ class TestVPCRoutersBasic(cloudstackTestCase):
         
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    @attr(tags=["advanced", "intervlan"])
     def test_02_reboot_router_after_creating_vpc(self):
         """ Test to reboot the router after creating a VPC
         """
@@ -513,7 +513,7 @@ class TestVPCRoutersBasic(cloudstackTestCase):
         self.migrate_router(routers[0])
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    @attr(tags=["advanced", "intervlan"])
     def test_04_change_service_offerring_vpc(self):
         """ Tests to change service offering of the Router after
             creating a vpc
@@ -574,7 +574,7 @@ class TestVPCRoutersBasic(cloudstackTestCase):
                         ) 
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    @attr(tags=["advanced", "intervlan"])
     def test_05_destroy_router_after_creating_vpc(self):
         """ Test to destroy the router after creating a VPC
 	    """
@@ -665,31 +665,6 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
                          domainid=cls.account.domainid
                          )
 
-        private_gateway = PrivateGateway.create(
-                                                cls.api_client,
-                                                gateway='10.1.3.1',
-                                                ipaddress='10.1.3.100',
-                                                netmask='255.255.255.0',
-                                                vlan=101,
-                                                vpcid=cls.vpc.id
-                                                )
-        cls.gateways = PrivateGateway.list(
-                                       cls.api_client,
-                                       id=private_gateway.id,
-                                       listall=True
-                                       )
-
-        static_route = StaticRoute.create(
-                                          cls.api_client,
-                                          cidr='11.1.1.1/24',
-                                          gatewayid=private_gateway.id
-                                          )
-        cls.static_routes = StaticRoute.list(
-                                       cls.api_client,
-                                       id=static_route.id,
-                                       listall=True
-                                       )
-    
         cls.nw_off = NetworkOffering.create(
                                             cls.api_client,
                                             cls.services["network_offering"],
@@ -791,6 +766,31 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
             cls.fail("Failed to enable static NAT on IP: %s - %s" % (
                                         public_ip_2.ipaddress.ipaddress, e))
 
+        private_gateway = PrivateGateway.create(
+                                                cls.api_client,
+                                                gateway='10.1.3.1',
+                                                ipaddress='10.1.3.100',
+                                                netmask='255.255.255.0',
+                                                vlan=121,
+                                                vpcid=cls.vpc.id
+                                                )
+        cls.gateways = PrivateGateway.list(
+                                       cls.api_client,
+                                       id=private_gateway.id,
+                                       listall=True
+                                       )
+
+        static_route = StaticRoute.create(
+                                          cls.api_client,
+                                          cidr='11.1.1.1/24',
+                                          gatewayid=private_gateway.id
+                                          )
+        cls.static_routes = StaticRoute.list(
+                                       cls.api_client,
+                                       id=static_route.id,
+                                       listall=True
+                                       )
+
         public_ips = PublicIPAddress.list(
                                     cls.api_client,
                                     networkid=cls.network_1.id,
@@ -799,33 +799,6 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
                                     account=cls.account.name,
                                     domainid=cls.account.domainid
                                   )
-        public_ip_3 = PublicIPAddress.create(
-                                cls.api_client,
-                                accountid=cls.account.name,
-                                zoneid=cls.zone.id,
-                                domainid=cls.account.domainid,
-                                networkid=cls.network_1.id,
-                                vpcid=cls.vpc.id
-                                )
-
-        lb_rule = LoadBalancerRule.create(
-                                    cls.api_client,
-                                    cls.services["lbrule"],
-                                    ipaddressid=public_ip_3.ipaddress.id,
-                                    accountid=cls.account.name,
-                                    networkid=cls.network_1.id,
-                                    vpcid=cls.vpc.id,
-                                    domainid=cls.account.domainid
-                                )
-
-        lb_rule.assign(cls.api_client, [vm_3])
-
-        nwacl_lb = NetworkACL.create(
-                                cls.api_client,
-                                networkid=cls.network_1.id,
-                                services=cls.services["lbrule"],
-                                traffictype='Ingress'
-                                )
 
         nwacl_internet_1 = NetworkACL.create(
                                 cls.api_client,
@@ -1012,7 +985,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
 	    #1. Create a VPC with cidr - 10.1.1.1/16
         #2. Add network1(10.1.1.1/24) to this VPC. 
         #3. Deploy vm1,vm2 and vm3 such that they are part of network1.
-        #4. Create a PF /Static Nat/LB rule for vms in network1.
+        #4. Create a PF /Static Nat for vms in network1.
         #5. Create ingress network ACL for allowing all the above rules from a public ip range on network1.
         #6. Create egress network ACL for network1 to access google.com.
         #7. Create a private gateway for this VPC and add a static route to this gateway.
@@ -1099,7 +1072,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
         
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    @attr(tags=["advanced", "intervlan"])
     def test_02_reboot_router_after_addition_of_one_guest_network(self):
         """ Test reboot of router after addition of one guest network
 	    """
@@ -1107,7 +1080,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
 	    #1. Create a VPC with cidr - 10.1.1.1/16
         #2. Add network1(10.1.1.1/24) to this VPC. 
         #3. Deploy vm1,vm2 and vm3 such that they are part of network1.
-        #4. Create a PF /Static Nat/LB rule for vms in network1.
+        #4. Create a PF /Static Nat for vms in network1.
         #5. Create ingress network ACL for allowing all the above rules from a public ip range on network1.
         #6. Create egress network ACL for network1 to access google.com.
         #7. Create a private gateway for this VPC and add a static route to this gateway.
@@ -1174,7 +1147,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
 	    #1. Create a VPC with cidr - 10.1.1.1/16
         #2. Add network1(10.1.1.1/24) to this VPC. 
         #3. Deploy vm1,vm2 and vm3 such that they are part of network1.
-        #4. Create a PF /Static Nat/LB rule for vms in network1.
+        #4. Create a PF /Static Nat for vms in network1.
         #5. Create ingress network ACL for allowing all the above rules from a public ip range on network1.
         #6. Create egress network ACL for network1 to access google.com.
         #7. Create a private gateway for this VPC and add a static route to this gateway.
@@ -1209,7 +1182,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
         self.migrate_router(routers[0])
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    @attr(tags=["advanced", "intervlan"])
     def test_04_chg_srv_off_router_after_addition_of_one_guest_network(self):
         """ Test to change service offering of router after addition of one guest network
 	    """
@@ -1217,7 +1190,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
 	    #1. Create a VPC with cidr - 10.1.1.1/16
         #2. Add network1(10.1.1.1/24) to this VPC. 
         #3. Deploy vm1,vm2 and vm3 such that they are part of network1.
-        #4. Create a PF /Static Nat/LB rule for vms in network1.
+        #4. Create a PF /Static Nat for vms in network1.
         #5. Create ingress network ACL for allowing all the above rules from a public ip range on network1.
         #6. Create egress network ACL for network1 to access google.com.
         #7. Create a private gateway for this VPC and add a static route to this gateway.
@@ -1287,7 +1260,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
                         ) 
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    @attr(tags=["advanced", "intervlan"])
     def test_05_destroy_router_after_addition_of_one_guest_network(self):
         """ Test destroy of router after addition of one guest network
         """
@@ -1295,7 +1268,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
 	    #1. Create a VPC with cidr - 10.1.1.1/16
         #2. Add network1(10.1.1.1/24) to this VPC. 
         #3. Deploy vm1,vm2 and vm3 such that they are part of network1.
-        #4. Create a PF /Static Nat/LB rule for vms in network1.
+        #4. Create a PF /Static Nat for vms in network1.
         #5. Create ingress network ACL for allowing all the above rules from a public ip range on network1.
         #6. Create egress network ACL for network1 to access google.com.
         #7. Create a private gateway for this VPC and add a static route to this gateway.

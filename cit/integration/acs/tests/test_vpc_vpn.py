@@ -57,7 +57,7 @@ class TestVpcRemoteAccessVpn(cloudstackTestCase):
         cls.cleanup = [cls.account]
 
    
-    @attr(tags=["advanced"], required_hardware="false")
+    @attr(tags=["advanced"])
     def test_vpc_remote_access_vpn(self):
         """Test VPN in VPC"""
 
@@ -173,7 +173,7 @@ class TestVpcSite2SiteVpn(cloudstackTestCase):
 
         cls.cleanup = [cls.account]
 
-    @attr(tags=["advanced"], required_hardware="false")
+    @attr(tags=["advanced"])
     def test_vpc_site2site_vpn(self):
         """Test VPN in VPC"""
 

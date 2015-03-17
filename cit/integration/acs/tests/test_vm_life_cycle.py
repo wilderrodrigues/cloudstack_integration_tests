@@ -118,7 +118,7 @@ class TestDeployVM(cloudstackTestCase):
         self.cleanup = []
 
 
-    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], required_hardware="false")
+    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"])
     def test_deploy_vm(self):
         """Test Deploy Virtual Machine
         """
@@ -164,7 +164,7 @@ class TestDeployVM(cloudstackTestCase):
         return
 
 
-    @attr(tags = ["advanced"], required_hardware="false")
+    @attr(tags = ["advanced"])
     def test_advZoneVirtualRouter(self):
         #TODO: SIMENH: duplicate test, remove it
         """
@@ -187,7 +187,7 @@ class TestDeployVM(cloudstackTestCase):
         self.assertIsNotNone(router.guestipaddress, msg="Router has no guest ip")
 
 
-    @attr(mode = ["basic"], required_hardware="false")
+    @attr(mode = ["basic"])
     def test_basicZoneVirtualRouter(self):
         #TODO: SIMENH: duplicate test, remove it
         """
@@ -203,7 +203,7 @@ class TestDeployVM(cloudstackTestCase):
         self.assertEqual(router.state, 'Running', msg="Router is not in running state")
         self.assertEqual(router.account, self.account.name, msg="Router does not belong to the account")
 
-    @attr(tags = ['advanced','basic','sg'], required_hardware="false")
+    @attr(tags = ['advanced','basic','sg'])
     def test_deploy_vm_multiple(self):
         """Test Multiple Deploy Virtual Machine
 
@@ -364,7 +364,7 @@ class TestVMLifeCycle(cloudstackTestCase):
         return
 
 
-    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], required_hardware="false", BugId="CLOUDSTACK-6984")
+    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], BugId="CLOUDSTACK-6984")
     def test_01_stop_vm(self):
         """Test Stop Virtual Machine
         """
@@ -379,7 +379,7 @@ class TestVMLifeCycle(cloudstackTestCase):
             self.fail("Failed to stop VM: %s" % e)
         return
 
-    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], required_hardware="false")
+    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"])
     def test_02_start_vm(self):
         """Test Start Virtual Machine
         """
@@ -417,7 +417,7 @@ class TestVMLifeCycle(cloudstackTestCase):
                         )
         return
 
-    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], required_hardware="false")
+    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"])
     def test_03_reboot_vm(self):
         """Test Reboot Virtual Machine
         """
@@ -454,7 +454,7 @@ class TestVMLifeCycle(cloudstackTestCase):
         return
 
 
-    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], required_hardware="false")
+    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"])
     def test_06_destroy_vm(self):
         """Test destroy Virtual Machine
         """
@@ -490,7 +490,7 @@ class TestVMLifeCycle(cloudstackTestCase):
                         )
         return
 
-    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], required_hardware="false")
+    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"])
     def test_07_restore_vm(self):
         #TODO: SIMENH: add another test the data on the restored VM.
         """Test recover Virtual Machine
@@ -531,7 +531,7 @@ class TestVMLifeCycle(cloudstackTestCase):
 
         return
 
-    @attr(tags = ["advanced", "advancedns", "smoke", "basic", "sg", "multihost"], required_hardware="false")
+    @attr(tags = ["advanced", "advancedns", "smoke", "basic", "sg", "multihost"])
     def test_08_migrate_vm(self):
         """Test migrate VM
         """
@@ -608,7 +608,7 @@ class TestVMLifeCycle(cloudstackTestCase):
 
     @attr(configuration = "expunge.interval")
     @attr(configuration = "expunge.delay")
-    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"], required_hardware="false")
+    @attr(tags = ["devcloud", "advanced", "advancedns", "smoke", "basic", "sg"])
     def test_09_expunge_vm(self):
         """Test destroy(expunge) Virtual Machine
         """

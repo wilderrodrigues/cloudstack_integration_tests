@@ -39,7 +39,7 @@ class TestPrivateGwACL(cloudstackTestCase):
         self.privateGwId = None
 
 
-    @attr(tags=["advanced"], required_hardware="false")
+    @attr(tags=["advanced"])
     def test_privategw_acl(self):
         #TODO: SIMENH: add a new test to verification of ACL rules
 
@@ -104,8 +104,6 @@ class TestPrivateGwACL(cloudstackTestCase):
 
         self.assertIsNotNone(createNetworkResponse.id, "Network failed to create")
         self.networkId = createNetworkResponse.id
-
-
 
     def createPvtGw(self):
         createPrivateGatewayCmd = createPrivateGateway.createPrivateGatewayCmd()

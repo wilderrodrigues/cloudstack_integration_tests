@@ -407,7 +407,7 @@ class TestVolumes(cloudstackTestCase):
                                     (self.virtual_machine.ipaddress, e))
         return
 
-    @attr(tags = ["advanced", "advancedns", "smoke", "basic"], required_hardware="false")
+    @attr(tags = ["advanced", "advancedns", "smoke", "basic"])
     def test_03_download_attached_volume(self):
         """Download a Volume attached to a VM
         """
@@ -429,7 +429,7 @@ class TestVolumes(cloudstackTestCase):
         with self.assertRaises(Exception):
             self.apiClient.extractVolume(cmd)
 
-    @attr(tags = ["advanced", "advancedns", "smoke", "basic"], required_hardware="false")
+    @attr(tags = ["advanced", "advancedns", "smoke", "basic"])
     def test_04_delete_attached_volume(self):
         """Delete a Volume attached to a VM
         """
@@ -450,7 +450,7 @@ class TestVolumes(cloudstackTestCase):
         with self.assertRaises(Exception):
             self.apiClient.deleteVolume(cmd)
         
-    @attr(tags = ["advanced", "advancedns", "smoke", "basic"], required_hardware="false")
+    @attr(tags = ["advanced", "advancedns", "smoke", "basic"])
     def test_05_detach_volume(self):
         """Detach a Volume attached to a VM
         """
@@ -735,7 +735,7 @@ class TestVolumes(cloudstackTestCase):
             time.sleep(30)
         return
 
-    @attr(tags = ["advanced", "advancedns", "smoke","basic"], required_hardware="false")
+    @attr(tags = ["advanced", "advancedns", "smoke","basic"])
     def test_09_delete_detached_volume(self):
         """Delete a Volume unattached to an VM
         """
