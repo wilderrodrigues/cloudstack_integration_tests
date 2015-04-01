@@ -492,7 +492,7 @@ class TestVPCRoutersBasic(cloudstackTestCase):
         return
 
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="true")
+    @attr(tags=["advanced", "intervlan"], required_hardware="false")
     def test_03_migrate_router_after_creating_vpc(self):
         """ Test migration of router to another host after creating VPC """
 
@@ -968,8 +968,8 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
                          "still %s" % (host.id, router.hostid))
         return
 
-    @attr(tags=["advanced", "intervlan"], required_hardware="true")
-    def test_03_migrate_router_after_addition_of_one_guest_network(self):
+    @attr(tags=["advanced", "intervlan"], required_hardware="false")
+    def test_06_migrate_router_after_addition_of_one_guest_network(self):
         """ Test migrate of router after addition of one guest network
 	    """
         # Validations
@@ -1003,7 +1003,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
         return
 
     @attr(tags=["advanced", "intervlan"], required_hardware="false")
-    def test_04_chg_srv_off_router_after_addition_of_one_guest_network(self):
+    def test_07_chg_srv_off_router_after_addition_of_one_guest_network(self):
         """ Test to change service offering of router after addition of one guest network
 	    """
         # Validations
@@ -1071,7 +1071,7 @@ class TestVPCRouterOneNetwork(cloudstackTestCase):
         return
 
     @attr(tags=["advanced", "intervlan"], required_hardware="false")
-    def test_05_destroy_router_after_addition_of_one_guest_network(self):
+    def test_08_destroy_router_after_addition_of_one_guest_network(self):
         """ Test destroy of router after addition of one guest network
         """
         # Validations

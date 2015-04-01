@@ -1,0 +1,25 @@
+@startuml
+
+VirtualMachineManagerImpl -> NetworkOrchestrator : orchestrateStart(final String vmUuid, final Map<VirtualMachineProfile.Param, Object> params, final DeploymentPlan planToDeploy, final DeploymentPlanner planner)
+NetworkOrchestrator -> NetworkOrchestrator : prepare(VirtualMachineProfile vmProfile, DeployDestination dest, ReservationContext context)
+NetworkOrchestrator -> NetworkOrchestrator : implementNetwork(long networkId, DeployDestination dest, ReservationContext context, boolean isRouter)
+NetworkOrchestrator -> NetworkOrchestrator : implementNetwork(long networkId, DeployDestination dest, ReservationContext context)
+NetworkOrchestrator -> NetworkOrchestrator : implementNetworkElementsAndResources(DeployDestination dest, ReservationContext context, Network network, NetworkOffering offering)
+NetworkOrchestrator -> VpcVirtualRouterElement : implement(network, offering, dest, context)
+VpcVirtualRouterElement -> RouterDeploymentDefinition : deployVirtualRouter()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : findOrDeployVirtualRouter()
+RouterDeploymentDefinition -> RouterDeploymentDefinition : startRouters()
+RouterDeploymentDefinition -> NetworkHelperImpl : startRouters(routerDeploymentDefinition)
+NetworkHelperImpl -> NetworkHelperImpl : startVirtualRouter(router, _accountMgr.getSystemUser(), _accountMgr.getSystemAccount(), routerDeploymentDefinition.getParams()
+NetworkHelperImpl <-- NetworkHelperImpl : List<DomainRouterVO>
+RouterDeploymentDefinition <-- NetworkHelperImpl : List<DomainRouterVO>
+VpcVirtualRouterElement <-- RouterDeploymentDefinition : List<DomainRouterVO>
+VpcVirtualRouterElement -> VpcVirtualRouterElement : configureGuestNetwork(network, routers)
+VpcVirtualRouterElement -> VpcVirtualNetworkApplianceManagerImpl : addVpcRouterToGuestNetwork(router, network, paramsForRouter)
+NetworkOrchestrator <-- VpcVirtualRouterElement : boolean
+NetworkOrchestrator <-- NetworkOrchestrator : Pair<NetworkGuru, NetworkVO>
+NetworkOrchestrator -> NetworkOrchestrator : prepareNic(vmProfile, dest, context, nic.getId(), network)
+NetworkOrchestrator <-- NetworkOrchestrator : NicProfile
+NetworkOrchestrator -> VirtualMachineProfile : addNic(profile)
+
+@endum

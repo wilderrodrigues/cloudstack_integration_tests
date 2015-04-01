@@ -1,0 +1,25 @@
+@startuml
+
+CreateVPCCmd -> VpcManagerImpl : startVpc(vpcId, destroyOnFailure)
+VpcManagerImpl -> VpcManagerImpl : startVpc(vpc, destination, context)
+VpcManagerImpl -> VpcVirtualRouterElement : implementVpc(vpc, destination, context)
+VpcVirtualRouterElement -> RouterDeploymentDefinition : deployVirtualRouter()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : findOrDeployVirtualRouter()
+VpcRouterDeploymentDefinition -> RouterDeploymentDefinition : findOrDeployVirtualRouter()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : checkPreconditions()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : findDestinations()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : generateDeploymentPlan()
+RouterDeploymentDefinition -> RouterDeploymentDefinition : executeDeployment()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : planDeploymentRouters()
+RouterDeploymentDefinition -> RouterDeploymentDefinition : setupPriorityOfRedundantRouter()
+RouterDeploymentDefinition -> RouterDeploymentDefinition : getNumberOfRoutersToDeploy()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : prepareDeployment()
+
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : findVirtualProvider()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : findServiceOfferingId()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : findSourceNatIP()
+RouterDeploymentDefinition -> VpcRouterDeploymentDefinition : deployAllVirtualRouters()
+VpcRouterDeploymentDefinition -> RouterDeploymentDefinition : getNumberOfRoutersToDeploy()
+VpcRouterDeploymentDefinition -> NetworkHelperImpl : deployRouter(deploymentDefinition, shouldStartRouter)
+
+@enduml
