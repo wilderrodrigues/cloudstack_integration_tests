@@ -1,5 +1,49 @@
 @startuml
 
+interface ServerResource {
+    # Answer executeRequest(Command command)
+}
 
+class CitrixResourceBase {
+    + Answer executeRequest(Command command);
+}
+
+abstract class CommandWrapper {
+    # A execute(T command, R serverResource)
+}
+
+abstract class RequestWrapper {
+    # Answer execute(Command command, ServerResource serverResource)
+}
+
+class CitrixRequestWrapper  {
+    + {static} CitrixRequestWrapper getInstance()
+    + Answer execute(Command command, ServerResource serverResource)
+}
+
+class CitrixAttachIsoCommandWrapper {
+    + Answer execute(final AttachIsoCommand command, final CitrixResourceBase citrixResourceBase)
+}
+
+class CitrixAttachVolumeCommandWrapper {
+    + Answer execute(final AttachVolumeCommand command, final CitrixResourceBase citrixResourceBase) {
+}
+
+class XenServer56NetworkUsageCommandWrapper {
+    + Answer execute(final NetworkUsageCommand command, final XenServer56Resource xenServer56)
+}
+
+CommandWrapper <|-- CitrixAttachIsoCommandWrapper
+CommandWrapper <|-- CitrixAttachVolumeCommandWrapper
+CommandWrapper <|-- XenServer56NetworkUsageCommandWrapper
+
+RequestWrapper <|-- CitrixRequestWrapper
+
+ServerResource <|.. CitrixResourceBase
+
+CitrixRequestWrapper <.. CitrixResourceBase : dependency
+CitrixRequestWrapper *- CitrixAttachIsoCommandWrapper : has >
+CitrixRequestWrapper *- CitrixAttachVolumeCommandWrapper : has >
+CitrixRequestWrapper *- XenServer56NetworkUsageCommandWrapper : has >
 
 @enduml
