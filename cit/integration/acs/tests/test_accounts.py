@@ -182,7 +182,7 @@ class TestAccounts(cloudstackTestCase):
                             self.services["account"]
                             )
         self.debug("Created account: %s" % account.name)
-        self.cleanup.append(account)
+        self._cleanup.append(account)
         list_accounts_response = list_accounts(
                                                self.apiclient,
                                                id=account.id
@@ -461,7 +461,7 @@ class TestUserDetails(cloudstackTestCase):
                                      self.services["account"],
                                      domainid=self.domain.id
                                      )
-        self.cleanup.append(self.account)
+        self._cleanup.append(self.account)
 
         # Fetching the user details of account
         self.debug(
@@ -548,7 +548,7 @@ class TestUserDetails(cloudstackTestCase):
                                      self.services["account"],
                                      admin=True,
                                      )
-        self.cleanup.append(self.account)
+        self._cleanup.append(self.account)
 
         # Fetching the user details of account
         self.debug(
@@ -635,7 +635,7 @@ class TestUserDetails(cloudstackTestCase):
                                      admin=True,
                                      domainid=self.domain.id
                                      )
-        self.cleanup.append(self.account)
+        self._cleanup.append(self.account)
 
         # Fetching the user details of account
         self.debug(
@@ -750,7 +750,7 @@ class TestUserLogin(cloudstackTestCase):
                                      self.services["account"],
                                      domainid=self.domain.id
                                      )
-        self.cleanup.append(self.account)
+        self._cleanup.append(self.account)
 
         self.debug("Logging into the cloudstack with login API")
         respose = User.login(
@@ -808,7 +808,7 @@ class TestUserLogin(cloudstackTestCase):
                                      self.services["account"],
                                      domainid=domain.id
                                      )
-        self.cleanup.append(self.account)
+        self._cleanup.append(self.account)
 
         accounts = Account.list(
                                 self.apiclient,
@@ -1026,8 +1026,8 @@ class TestDomainForceRemove(cloudstackTestCase):
                     "Length of response from listLbRules should not be 0"
                     )
         except Exception as e:
-            self.clenaup.append(self.account_1)
-            self.cleanup.append(self.account_2)
+            self._cleanup.append(self.account_1)
+            self._cleanup.append(self.account_2)
             self.fail(e)
 
         self.debug("Deleting domain with force option")
@@ -1095,14 +1095,14 @@ class TestDomainForceRemove(cloudstackTestCase):
                                      self.services["account"],
                                      domainid=domain.id
                                      )
-        self.cleanup.append(self.account_1)
+        self._cleanup.append(self.account_1)
 
         self.account_2 = Account.create(
                                      self.apiclient,
                                      self.services["account"],
                                      domainid=domain.id
                                      )
-        self.cleanup.append(self.account_2)
+        self._cleanup.append(self.account_2)
 
         self.debug("Creating a tiny service offering for VM deployment")
         self.service_offering = ServiceOffering.create(
@@ -1110,7 +1110,7 @@ class TestDomainForceRemove(cloudstackTestCase):
                                     self.services["service_offering"],
                                     domainid=self.domain.id
                                     )
-        self.cleanup.append(self.service_offering)
+        self._cleanup.append(self.service_offering)
 
         self.debug("Deploying virtual machine in account 1: %s" %
                                                 self.account_1.name)
